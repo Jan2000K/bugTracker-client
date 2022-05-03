@@ -1,0 +1,14 @@
+.editBugContainer img{
+    float: right;
+    cursor: pointer;
+}
+.editModal{
+    display: block !important;
+}
+
+.editBugContainer h2{
+    display: inline-block;
+}
+.inputContainer input {
+    margin-left: 1vw;
+}

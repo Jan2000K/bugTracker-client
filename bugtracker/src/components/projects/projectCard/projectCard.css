@@ -1,0 +1,22 @@
+.projectCard{
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    align-items: center;
+    margin-top: 0.5vw;
+}
+.projectCard p{
+    font-size: 1.1rem;
+    display: inline;
+}
+
+.projectName{
+    color: blue;
+    cursor: pointer;
+}
+
+
+@media  screen and (max-width: 800px){
+    .projectCard{
+        margin-top: 1.5vw;
+    }
+}

@@ -1,0 +1,210 @@
+.loginContainer{  
+    background-color: rgb(171, 184, 233);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.formContainer{
+    background-color:white;
+    width: 50%;
+    text-align: center;
+}
+.formContainer input[type="text"], input[type="password"]{
+    display: inline-block;
+    width: 100%;
+}
+
+.formContainer button{
+    display: block;
+    font-weight: bold;
+    border: 0;
+    background-color: rgb(171, 184, 233);
+    transition: background-color 1s;
+}
+
+.formContainer button:hover{
+    cursor: pointer;
+    background-color: #06a154;
+    transition: background-color 1s;
+}
+
+
+.fromContainer .formContainer img{
+    display: block;
+    margin: auto;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .formContainer{
+        padding: 6vh 0;
+        width: 100%;
+    }
+    .formContainer input[type="text"],input[type="password"]{
+        border-radius: 1rem;
+        width: 80%;
+        padding:0.5rem;
+        font-size: 1rem;
+    }
+    .formContainer img{
+        height: 13vh;
+        width: 13vh;
+    }
+    .userInput{
+        margin-top: 3vw;
+    }
+    .passwordInput{
+        margin-top: 3vw;
+    }
+    
+    .formContainer button{
+        margin: 2vw auto 0 auto;
+        padding: 1vw 2vw;
+        font-size: 1.2rem;
+        border-radius: 1rem;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+    }
+
+
+
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media(min-width: 600px) {
+    .formContainer{
+        padding: 4vw 2vw 4vw 2vw;
+        width: 75%;
+
+    }
+    .formContainer input[type="text"],input[type="password"]{
+        border-radius: 1rem;
+        padding:1vw;
+        font-size: 1.3rem;
+    }
+    .formContainer img{
+        height: 15vw;
+        width: 15vw;
+    }
+    .userInput{
+        margin-top: 3vw;
+    }
+    .passwordInput{
+        margin-top: 3vw;
+    }
+    
+    .formContainer button{
+        margin: 2vw auto 0 auto;
+        padding: 1vw 2vw;
+        border-radius: 1rem;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media(min-width: 768px) {
+    .formContainer{
+        padding: 6vw 3vw 6vw 3vw;
+        width: 50%;
+    }
+    .formContainer input[type="text"], input[type="password"]{
+        border-radius: 1rem;
+        padding:0.5rem;
+        font-size: 1rem;
+    }
+    .formContainer img{
+        height: 14vw;
+        width: 14vw;
+    }
+    .userInput{
+        margin-top: 2vw;
+    }
+    .passwordInput{
+        margin-top: 2vw;
+    }
+    
+    .formContainer button{
+        margin: 1vw auto 0 auto;
+        padding: 1vw 2vw;
+        border-radius: 1rem;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+    }
+
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media(min-width: 992px) {
+    .formContainer{
+        padding: 6vw 3vw 6vw 3vw;
+        width: 50%;
+    }
+    .formContainer input[type="text"],.formContainer input[type="password"]{
+        border-radius: 1rem;
+        padding:0.5rem;
+        font-size: 1rem;
+    }
+    .formContainer img{
+        height: 12vw;
+        width: 12vw;
+    }
+    .userInput{
+        margin-top: 2vw;
+    }
+    .passwordInput{
+        margin-top: 2vw;
+    }
+    
+    .formContainer button{
+        margin: 1vw auto 0 auto;
+        padding: 1vw 2vw;
+        border-radius: 1rem;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+    }
+
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media(min-width: 1200px) {
+    .formContainer{
+        padding: 6vw 3vw 6vw 3vw;
+        width: 25%;
+        border-radius: 20px;
+    }
+    .formContainer input[type="text"],.formContainer input[type="password"]{
+        border-radius: 20px;
+        padding:0.5rem;
+        font-size: 1rem;
+        background-color: rgb(239, 239, 239);
+        border: none;
+    }
+    .formContainer img{
+        height: 9vw;
+        width: 9vw;
+    }
+    .userInput{
+        margin-top: 1vw;
+    }
+    .passwordInput{
+        margin-top: 1vw;
+    }
+    
+    .formContainer button{
+        margin: 1vw auto 0 auto;
+        padding: 1vw 2vw;
+        border-radius: 20px;
+        letter-spacing: 0.1rem;
+        margin-bottom: 1rem;
+    }
+
+
+}
