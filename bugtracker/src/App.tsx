@@ -1,64 +1,69 @@
-import { useState } from "react";
+import { useState,useContext,createContext, useEffect } from "react";
 import "./App.css";
 import Bugs from "./components/bugs/bugs";
 import AddBug from "./components/bugs/Modal/addBug/addBug";
 import LoginPage from "./components/loginPage/loginPage";
 import Projects from "./components/projects/projects";
+import { checkLogin, fetchAllProjects } from "./hooks/dataFetching";
 
 function App() {
-  const initialObj:project={
-    id: 5,
-    name: "Project One",
-    bugs: [
-      {
-        id: 1,
-        name: "Center front image",
-        status: "Open",
-        severity: "Medium",
-        note: "Filename:Index.js",
+  async function fetch(){
+    await fetchAllProjects().then(
+      (res)=>{
+        if(res.data.err===false){
+          setActiveProject(res.data.message[0])
+          setProjectData(res.data.message)
+        }
       }
-    ],
-    bugStats:{
-      open:1,
-      mediumPriority:1,
-      highPriority:0,
-      lowPriority:0
-    } 
+    )
+    .catch(
+      (err)=>{
+        console.log(err)
+      }
+    )
   }
 
-  const secondObj:project ={
-    id: 10,
-    name: "Project two",
-    bugs: [
-      {
-        id: 2,
-        name: "Fix login error message",
-        status: "Testing",
-        severity: "High",
-        note: "Filename:Login.js",
-      },
-      {
-        id: 3,
-        name: "Lower image opacity",
-        status: "Closed",
-        severity: "Low",
-        note: "Filename:Index.js",
+  async function checkAuth(){
+    await checkLogin().then(
+      (res)=>{
+        console.log(res)
+        if(res.data.err){
+          setLogin(false)
+        }
+        else{
+          setLogin(true)
+        }
       }
-    ],
-    bugStats:{
-      open:2,
-      highPriority:1,
-      mediumPriority:0,
-      lowPriority:1
-    } 
+    )
+    .catch(
+      (err)=>{
+        setLogin(false)
+      }
+    )
   }
-  const [projectData, setProjectData] = useState<project[]>([initialObj,secondObj]);
 
+  
+  useEffect(
+    ()=>{
+      checkAuth()
+      fetch()
+    },[]
+  )
+
+  const [projectData, setProjectData] = useState<project[]>([]);
+  
   const [activeProject,setActiveProject] = useState<project>(projectData[0])
 
-  const Loggedin = false
+  const [isLogged,setLogin] = useState<boolean>(false)
 
-  if(Loggedin){
+
+
+  if(isLogged){
+
+    if(projectData.length===0 ||activeProject ===null){
+      return <p>Loading data</p>
+    }
+    else{
     return (
       <div className="App">
         <Projects activeProjectState={{setter:setActiveProject,value:activeProject}}  allProjectsState={{setter:setProjectData,value:projectData}}/>
@@ -66,12 +71,12 @@ function App() {
         <AddBug />
       </div>
     );
+    }
   }
   else{
-
     return(
       <div className="loginContainer">
-        <LoginPage />
+        <LoginPage setter={setLogin} value={isLogged}/>
       </div>
     )
   }

@@ -55,6 +55,14 @@ declare global{
 
     type bugSeverity = "Low" | "Medium" | "High"
 
+    interface authContext<T>{
+        state:reactStateProp<T>
+    }
+
+    interface apiResponse{
+        err:boolean,
+        message:string
+    }
 }
 
 export default global
