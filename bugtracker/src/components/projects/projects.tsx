@@ -1,39 +1,51 @@
+import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import ProjectCard from "./projectCard/projectCard";
 import "./projects.css";
 export default function Projects(
-  projectsState: activeAndAllProjectsReactState
+  props:{projectsState:reactStateProp<project[]>,activeProject:reactStateProp<project | null>}
 ) {
-  let data: project[] = projectsState.allProjectsState.value;
-  const setProjectData = projectsState.allProjectsState.setter;
+  let data: project[] = props.projectsState.value;
+  const setProjectData = props.projectsState.setter;
   const [projectError, setProjectError] = useState("");
 
   const [projectDataCopy, setProjectDataCopy] = useState<project[]>(data);
   const [searchValue, setSearchValue] = useState("");
-  function addProject() {
+  async function addProject() {
     const inputElement = document.querySelector(
       "#addProjectInput"
     ) as HTMLInputElement;
     if (inputElement.value.trim().length < 1) {
       setProjectError("Enter project name!");
     } else {
+      await axios.post("http://localhost:5000/project",{
+        "id":0,
+        "name":inputElement.value,
+        "bugs":[]
+      },{withCredentials:true})
+      .then(
+        (res)=>{
+          console.log(res)
+          if(res.data.err){
+            setProjectError(res.data.message)
+          }
+          else{
+            console.log(res.data)
+          }
+        }
+      )
+      .catch(
+        (err)=>{
+          console.log(err)
+        }
+      )
       inputElement.value=""
       if(projectError!==""){
         setProjectError("")
         
       }
-      //API call
-      let project: project = {
-        id: 0,
-        name: inputElement.value,
-        bugs: [],
-        bugStats: {
-          highPriority: 0,
-          lowPriority: 0,
-          mediumPriority: 0,
-          open: 0,
-        },
-      };
+
+      
     }
   }
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
@@ -51,6 +63,8 @@ export default function Projects(
       setProjectDataCopy(filtered);
     }
   }
+
+
 
   return (
     <section id="projects">
@@ -81,15 +95,17 @@ export default function Projects(
       </div>
 
       <div className="projectsContainer">
-        {projectDataCopy.map((project) => {
+        {projectDataCopy.map((projectInstance,index) => {
           return (
             <ProjectCard
-              key={project.id}
-              id={project.id}
-              name={project.name}
-              bugStats={project.bugStats}
-              bugs={project.bugs}
-              activeProjectState={projectsState.activeProjectState}
+            key={projectInstance.id}
+              project={{
+              id:projectInstance.id,
+              name:projectInstance.name,
+              bugStats:projectInstance.bugStats,
+              bugs:projectInstance.bugs
+              }}
+              activeProjectState={props.activeProject}
             />
           );
         })}

@@ -13,7 +13,7 @@ export default function Bugs(bugsProp:bugsDisplayProp){
 
 
     const [selectedBug,setSelectedBug] = useState<bug>({id:-1,name:"placeholder",note:"",severity:"High",status:"Closed"})
-       
+    console.log(bugsProp.activeProject.bugs)
     return(
         <div className="bugsContainer">
             <div className="bugHeader">

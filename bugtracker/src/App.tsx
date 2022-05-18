@@ -11,8 +11,18 @@ function App() {
     await fetchAllProjects().then(
       (res)=>{
         if(res.data.err===false){
-          setActiveProject(res.data.message[0])
           setProjectData(res.data.message)
+          if(activeProject!==null){
+            let newActiveProject = projectData.filter(
+              (proj)=>{
+                  if(proj.id===activeProject.id){
+                    return true
+                  }
+              }
+            )
+            setActiveProject(newActiveProject[0])
+          }
+          setFetchIncrement(1)
         }
       }
     )
@@ -43,32 +53,49 @@ function App() {
   }
 
   
-  useEffect(
-    ()=>{
-      checkAuth()
-      fetch()
-    },[]
-  )
+
+  const [fetchIncrement,setFetchIncrement] = useState<number>(0)
 
   const [projectData, setProjectData] = useState<project[]>([]);
   
-  const [activeProject,setActiveProject] = useState<project>(projectData[0])
+  const [activeProject,setActiveProject] = useState<project | null>(null)
 
   const [isLogged,setLogin] = useState<boolean>(false)
 
 
+ 
+  useEffect(
+    ()=>{
+      checkAuth()
+    },[]
+  )
+  useEffect(
+    ()=>{
+      fetch()
+    },[isLogged,fetchIncrement]
+  )
+
+
 
   if(isLogged){
-
-    if(projectData.length===0 ||activeProject ===null){
+    if(fetchIncrement===0){
       return <p>Loading data</p>
+    }
+    else if(activeProject===null){
+      return (
+        <div className="App">
+          <Projects activeProject={{setter:setActiveProject,value:activeProject}} projectsState={{setter:setProjectData,value:projectData}}/>
+        </div>
+      );
+
     }
     else{
     return (
+      
       <div className="App">
-        <Projects activeProjectState={{setter:setActiveProject,value:activeProject}}  allProjectsState={{setter:setProjectData,value:projectData}}/>
+        <Projects activeProject={{setter:setActiveProject,value:activeProject}} projectsState={{setter:setProjectData,value:projectData}}/>
         <Bugs bugArray={activeProject.bugs} activeProject={activeProject}/>
-        <AddBug />
+        <AddBug activeProjectState={{setter:setActiveProject,value:activeProject}}  incrementState={{setter:setFetchIncrement,value:fetchIncrement}}/>
       </div>
     );
     }

@@ -2,7 +2,8 @@ import "./addBug.css";
 
 import closeIcon from "../../../../assets/closeIcon.svg";
 import { useState } from "react";
-export default function AddBug() {
+import axios from "axios";
+export default function AddBug(props:{incrementState:reactStateProp<number>,activeProjectState:reactStateProp<project|null>}) {
   function closeModal() {
     
     const modalElement = document.querySelector(".addModal") as HTMLElement;
@@ -25,18 +26,49 @@ export default function AddBug() {
 
   }
 
-  function saveAndClose() {
+  async function saveAndClose() {
     const bugName = document.querySelector(".addBugName") as HTMLInputElement
 
     if(bugName.value.trim().length<1){
         setNameError("Please enter Bug Name!")
         return false
     }
+    const severity  = document.querySelector(".addSelect") as HTMLSelectElement
 
+    const noteInput = document.querySelector(".noteInput") as HTMLInputElement
+
+    
+    await axios.post("http://localhost:5000/bug",{
+      id:0,
+      name:bugName.value,
+      status:"Open",
+      severity:severity.value,
+      note:noteInput.value,
+      projectID:props.activeProjectState.value!.id
+    },{withCredentials:true})
+    .then(
+      (res)=>{
+        console.log(res)
+        if(res.data.err){
+          setNameError(res.data.message)
+          return
+        }
+        else{
+          resetFields()
+          closeModal();
+          props.incrementState.setter(0)
+
+        }
+      }
+    )
+    .catch(
+      (err)=>{
+        setNameError(err)
+        return
+      }
+    )
     //api call
-    resetFields()
 
-    closeModal();
   }
   return (
     <div className="modal addModal">
@@ -57,7 +89,7 @@ export default function AddBug() {
             </select>
             <br />
             <label>Note</label>
-            <input type={"text"} className="addInput"/>
+            <input type={"text"} className="addInput noteInput"/>
             <br />
             <button onClick={saveAndClose}>+ Add</button>
           </div>

@@ -1,20 +1,20 @@
 import "./projectCard.css"
 
-export default function ProjectCard(projectData:project){
+export default function ProjectCard(props:{activeProjectState:reactStateProp<project |null>,project:project}){
 
-    const setActiveProject = projectData.activeProjectState?.setter
+    const setActiveProject = props.activeProjectState?.setter
 
     function setThisToActive(){
-        const currentProject:project = {...projectData}
+        const currentProject:project = {...props.project}
         if(setActiveProject!==undefined){
             setActiveProject(currentProject)
         }
     }
     return(
         <div className="projectCard">
-            <div><p className="projectName" onClick={setThisToActive}>{projectData.name}</p></div>
-            <p>{projectData.bugStats.open}</p>
-            <p>{projectData.bugStats.highPriority}</p>
+            <div><p className="projectName" onClick={setThisToActive}>{props.project.name}</p></div>
+            <p>{props.project.bugStats.open}</p>
+            <p>{props.project.bugStats.highPriority}</p>
         </div>
     )
 }
