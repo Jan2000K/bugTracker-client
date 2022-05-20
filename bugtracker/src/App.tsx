@@ -20,6 +20,7 @@ function App() {
                   }
               }
             )
+            console.log(newActiveProject[0])
             setActiveProject(newActiveProject[0])
           }
           setFetchIncrement(1)
@@ -28,7 +29,7 @@ function App() {
     )
     .catch(
       (err)=>{
-        console.log(err)
+        console.log(err.response)
       }
     )
   }
@@ -60,9 +61,10 @@ function App() {
   
   const [activeProject,setActiveProject] = useState<project | null>(null)
 
+
   const [isLogged,setLogin] = useState<boolean>(false)
 
-
+console.log(isLogged)
  
   useEffect(
     ()=>{
@@ -84,7 +86,7 @@ function App() {
     else if(activeProject===null){
       return (
         <div className="App">
-          <Projects activeProject={{setter:setActiveProject,value:activeProject}} projectsState={{setter:setProjectData,value:projectData}}/>
+          <Projects fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={{setter:setActiveProject,value:activeProject}} isLogged={{setter:setLogin,value:isLogged}} projectsState={{setter:setProjectData,value:projectData}}/>
         </div>
       );
 
@@ -93,8 +95,8 @@ function App() {
     return (
       
       <div className="App">
-        <Projects activeProject={{setter:setActiveProject,value:activeProject}} projectsState={{setter:setProjectData,value:projectData}}/>
-        <Bugs bugArray={activeProject.bugs} activeProject={activeProject}/>
+        <Projects fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={{setter:setActiveProject,value:activeProject}} isLogged={{setter:setLogin,value:isLogged}} projectsState={{setter:setProjectData,value:projectData}}/>
+        <Bugs bugArray={activeProject.bugs} isLogged={{setter:setLogin,value:isLogged}} fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={activeProject}/>
         <AddBug activeProjectState={{setter:setActiveProject,value:activeProject}}  incrementState={{setter:setFetchIncrement,value:fetchIncrement}}/>
       </div>
     );

@@ -2,7 +2,8 @@ import { useState } from "react"
 import EditBug from "../Modal/editBug/editBug"
 import "./bugCard.css"
 
-export default function BugCard(bugData:bug){
+
+export default function BugCard(props:{bugData:bug,bugState:reactStateProp<bug>,fetchIncrementState:reactStateProp<number>,isLogged:reactStateProp<boolean>}){
     function openEditModal(){
         setModalOpen(true)
 
@@ -12,12 +13,13 @@ export default function BugCard(bugData:bug){
     return(
         <div className="columnNames bugContainer">
             <ul>
-                <li className="bugTitle" onClick={openEditModal}>{bugData.name}</li>
-                <li>{bugData.status}</li>
-                <li>{bugData.severity}</li>
-                <li>{bugData.note}</li>
+                <li className="bugTitle" onClick={openEditModal}>{props.bugData.name}</li>
+                <li>{props.bugData.status}</li>
+                <li>{props.bugData.severity}</li>
+                <li>{props.bugData.note}</li>
+                
             </ul>
-            {modalOpened?<EditBug bugData={{...bugData}} modalState={{setter:setModalOpen,value:modalOpened}}  />:null}
+            {modalOpened?<EditBug  bugData={{...props.bugData}} fetchIncrement={props.fetchIncrementState} modalState={{setter:setModalOpen,value:modalOpened}} isLogged={props.isLogged}   />:null}
         </div>
 
         

@@ -1,14 +1,13 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
+import { postNewProject } from "../../hooks/dataFetching";
 import ProjectCard from "./projectCard/projectCard";
 import "./projects.css";
 export default function Projects(
-  props:{projectsState:reactStateProp<project[]>,activeProject:reactStateProp<project | null>}
+  props:{projectsState:reactStateProp<project[]>,activeProject:reactStateProp<project | null>,isLogged:reactStateProp<boolean>,fetchIncrement:reactStateProp<number>}
 ) {
   let data: project[] = props.projectsState.value;
-  const setProjectData = props.projectsState.setter;
   const [projectError, setProjectError] = useState("");
-
   const [projectDataCopy, setProjectDataCopy] = useState<project[]>(data);
   const [searchValue, setSearchValue] = useState("");
   async function addProject() {
@@ -18,11 +17,7 @@ export default function Projects(
     if (inputElement.value.trim().length < 1) {
       setProjectError("Enter project name!");
     } else {
-      await axios.post("http://localhost:5000/project",{
-        "id":0,
-        "name":inputElement.value,
-        "bugs":[]
-      },{withCredentials:true})
+      await postNewProject({id:0,name:inputElement.value,bugs:[]})
       .then(
         (res)=>{
           console.log(res)
@@ -30,13 +25,15 @@ export default function Projects(
             setProjectError(res.data.message)
           }
           else{
-            console.log(res.data)
+            props.fetchIncrement.setter(0)
           }
         }
       )
       .catch(
         (err)=>{
-          console.log(err)
+          if(err.response.status===401){
+
+          }
         }
       )
       inputElement.value=""
@@ -82,6 +79,7 @@ export default function Projects(
       </div>
       <div className="searchContainer">
         <input
+          className="searchProjectsInput"
           type={"search"}
           placeholder={"Search Projects..."}
           value={searchValue}
@@ -95,9 +93,11 @@ export default function Projects(
       </div>
 
       <div className="projectsContainer">
-        {projectDataCopy.map((projectInstance,index) => {
+        {projectDataCopy.map((projectInstance) => {
           return (
             <ProjectCard
+            isLogged={props.isLogged}
+            fetchIncrement={props.fetchIncrement}
             key={projectInstance.id}
               project={{
               id:projectInstance.id,

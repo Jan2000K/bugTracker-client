@@ -1,7 +1,7 @@
-import AddBug from "./Modal/addBug/addBug"
+
 import BugCard from "./bugCard/bugCard"
 import "./bugs.css"
-import EditBug from "./Modal/editBug/editBug"
+
 import { useEffect, useState } from "react"
 
 export default function Bugs(bugsProp:bugsDisplayProp){
@@ -13,7 +13,6 @@ export default function Bugs(bugsProp:bugsDisplayProp){
 
 
     const [selectedBug,setSelectedBug] = useState<bug>({id:-1,name:"placeholder",note:"",severity:"High",status:"Closed"})
-    console.log(bugsProp.activeProject.bugs)
     return(
         <div className="bugsContainer">
             <div className="bugHeader">
@@ -50,7 +49,7 @@ export default function Bugs(bugsProp:bugsDisplayProp){
             </div>
             {bugsProp.bugArray.map(
                 (bug)=>{
-                    return(<BugCard  name={bug.name} key={bug.id} id={bug.id} note={bug.note} severity={bug.severity} status={bug.status} bugState={{value:selectedBug,setter:setSelectedBug}} />)
+                    return(<BugCard  bugData={{id:bug.id,name:bug.name,note:bug.note,severity:bug.severity,status:bug.status}} bugState={{value:selectedBug,setter:setSelectedBug}} fetchIncrementState={bugsProp.fetchIncrement} isLogged={bugsProp.isLogged} key={bug.id}  />)
                 }
             )}
 

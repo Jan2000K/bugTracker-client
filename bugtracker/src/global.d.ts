@@ -44,12 +44,16 @@ declare global{
 
     interface editBugProp{
         bugData:bug,
-        modalState : reactStateProp<boolean>
+        modalState : reactStateProp<boolean>,
+        fetchIncrement:reactStateProp<number>,
+        isLogged:reactStateProp<boolean>
     }
 
     interface bugsDisplayProp{
         activeProject:project,
-        bugArray:bug[]
+        bugArray:bug[],
+        fetchIncrement:reactStateProp<number>,
+        isLogged:reactStateProp<boolean>    
     }
     type bugStatus = "Open"  | "Testing" | "Closed"
 

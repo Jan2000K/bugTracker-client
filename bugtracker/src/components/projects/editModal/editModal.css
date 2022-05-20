@@ -1,12 +1,16 @@
-.editBugContainer img{
+.editProjectContainer img{
     float: right;
     cursor: pointer;
+}
+
+.editProjectContainer input{
+    width: 50%;
 }
 .editModal{
     display: block !important;
 }
 
-.editBugContainer h2{
+.editProjectContainer h2{
     display: inline-block;
 }
 .inputContainer input {
@@ -26,12 +30,33 @@
     cursor: pointer;
 }
 
+
 .editModal .buttonContainer .deleteButton {
     background-color: rgb(249, 106, 106);
 }
 .editModal .buttonContainer .updateButton {
     background-color: rgb(203, 207, 238);
 }
+
+.modalProjectContent{
+    padding: 1vw;
+    position: relative;
+    top: 25%;
+    background-color: white;
+    margin: auto;
+    width: 30%;
+    height: 35%;
+}
+
+.modalProjectContent label,input,select,.addButton{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.modalProjectContent h2{
+    font-family: 'Poppins', sans-serif;
+}
+
+
 
 @media screen and  (max-width:700px) {
 

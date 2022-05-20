@@ -91,7 +91,7 @@ export default function AddBug(props:{incrementState:reactStateProp<number>,acti
             <label>Note</label>
             <input type={"text"} className="addInput noteInput"/>
             <br />
-            <button onClick={saveAndClose}>+ Add</button>
+            <button onClick={saveAndClose} className="addButton">+ Add</button>
           </div>
         </div>
       </div>

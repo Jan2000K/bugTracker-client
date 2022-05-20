@@ -1,6 +1,6 @@
 .projectCard{
     display: grid;
-    grid-template-columns: 60% 20% 20%;
+    grid-template-columns: 50% 20% 20% 10%;
     align-items: center;
     margin-top: 0.5vw;
 }
@@ -8,11 +8,20 @@
     font-size: 1.1rem;
     display: inline;
 }
+.projectCard img{
+    width: 1.5rem;
+    height: 1.5rem;
+}
 
+.projectCard img{
+    cursor: pointer;
+}
 .projectName{
     color: blue;
     cursor: pointer;
 }
+
+
 
 
 @media  screen and (max-width: 800px){
