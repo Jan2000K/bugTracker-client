@@ -3,7 +3,7 @@ import "./addBug.css";
 import closeIcon from "../../../../assets/closeIcon.svg";
 import { useState } from "react";
 import axios from "axios";
-export default function AddBug(props:{incrementState:reactStateProp<number>,activeProjectState:reactStateProp<project|null>}) {
+export default function AddBug(props:{incrementState:reactStateProp<number>,activeProjectState:reactStateProp<project|null>,isLogged:reactStateProp<boolean>}) {
   function closeModal() {
     
     const modalElement = document.querySelector(".addModal") as HTMLElement;
@@ -63,8 +63,13 @@ export default function AddBug(props:{incrementState:reactStateProp<number>,acti
     )
     .catch(
       (err)=>{
-        setNameError(err)
+        if(err.response.code===401){
+          props.isLogged.setter(false)
+        }
+        else{
+        setNameError("Error adding project")
         return
+        }
       }
     )
     //api call
@@ -75,7 +80,7 @@ export default function AddBug(props:{incrementState:reactStateProp<number>,acti
       <div className="modalContent">
         <div className="addBugContainer">
           <h2>Add Bug</h2>
-          <img src={closeIcon} onClick={closeModal} />
+          <img src={closeIcon} alt="closeIcon" onClick={closeModal} />
           <div className="inputContainer">
             {nameError===""?null:<p className="errorMsg">{nameError}</p>}
             <label>Bug name</label>

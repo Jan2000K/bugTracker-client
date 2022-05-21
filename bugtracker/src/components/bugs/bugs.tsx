@@ -2,7 +2,8 @@
 import BugCard from "./bugCard/bugCard"
 import "./bugs.css"
 
-import { useEffect, useState } from "react"
+import {  useState } from "react"
+
 
 export default function Bugs(bugsProp:bugsDisplayProp){
 
@@ -10,6 +11,107 @@ export default function Bugs(bugsProp:bugsDisplayProp){
         const modal = document.querySelector(".addModal") as HTMLElement
         modal.style.display="block"
     }
+
+
+    const sortedArray = bugsProp.bugArray.sort(
+        (a,b)=>{
+            if(a.status==="Open" && b.status==="Open"){
+                if(a.severity==="High" && b.severity==="High"){
+                    return 0
+                }
+                else if(a.severity==="High" && b.severity!=="High"){
+                    return -1
+                }
+                else if(b.severity==="High" && a.severity!=="High"){
+                    return 1
+                }
+                else if(a.severity==="Medium" && b.severity==="Low"){
+                    return -1
+                }
+                else if(b.severity==="Medium" && a.severity==="Low"){
+                    return 1
+                }
+                else if(a.severity==="Medium"&& b.severity==="Medium"){
+                    return 0
+                }
+                else if(a.severity==="Low" && b.severity==="Low"){
+                    return 0
+                }
+                else{
+                    return 0
+                }
+            }
+            else if(a.status==="Open" && b.status!=="Open"){
+                return -1
+            }
+            else if(b.status==="Open" && a.status!=="Open"){
+                return 1
+            }
+            else if(a.status==="Testing" && b.status==="Testing"){
+                if(a.severity==="High" && b.severity==="High"){
+                    return 0
+                }
+                else if(a.severity==="High" && b.severity!=="High"){
+                    return -1
+                }
+                else if(b.severity==="High" && a.severity!=="High"){
+                    return 1
+                }
+                else if(a.severity==="Medium" && b.severity==="Low"){
+                    return -1
+                }
+                else if(b.severity==="Medium" && a.severity==="Low"){
+                    return 1
+                }
+                else if(a.severity==="Medium"&& b.severity==="Medium"){
+                    return 0
+                }
+                else if(a.severity==="Low" && b.severity==="Low"){
+                    return 0
+                }
+                else{
+                    return 0
+                }
+            }
+            else if(a.status==="Testing" && b.status==="Closed"){
+                return -1
+            }
+            
+            else if(b.status==="Testing" && a.status==="Closed"){
+                return 1
+            }
+            else if(a.status==="Closed" && b.status==="Closed"){
+                if(a.severity==="High" && b.severity==="High"){
+                    return 0
+                }
+                else if(a.severity==="High" && b.severity!=="High"){
+                    return -1
+                }
+                else if(b.severity==="High" && a.severity!=="High"){
+                    return 1
+                }
+                else if(a.severity==="Medium" && b.severity==="Low"){
+                    return -1
+                }
+                else if(b.severity==="Medium" && a.severity==="Low"){
+                    return 1
+                }
+                else if(a.severity==="Medium"&& b.severity==="Medium"){
+                    return 0
+                }
+                else if(a.severity==="Low" && b.severity==="Low"){
+                    return 0
+                }
+                else{
+                    return 0
+                }
+            }
+            else{
+                return 0
+            }
+            
+            }
+    )
 
 
     const [selectedBug,setSelectedBug] = useState<bug>({id:-1,name:"placeholder",note:"",severity:"High",status:"Closed"})
@@ -47,7 +149,7 @@ export default function Bugs(bugsProp:bugsDisplayProp){
                     <li>Note</li>
                 </ul>
             </div>
-            {bugsProp.bugArray.map(
+            {sortedArray.map(
                 (bug)=>{
                     return(<BugCard  bugData={{id:bug.id,name:bug.name,note:bug.note,severity:bug.severity,status:bug.status}} bugState={{value:selectedBug,setter:setSelectedBug}} fetchIncrementState={bugsProp.fetchIncrement} isLogged={bugsProp.isLogged} key={bug.id}  />)
                 }

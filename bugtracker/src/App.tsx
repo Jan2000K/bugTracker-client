@@ -1,4 +1,4 @@
-import { useState,useContext,createContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Bugs from "./components/bugs/bugs";
 import AddBug from "./components/bugs/Modal/addBug/addBug";
@@ -7,37 +7,11 @@ import Projects from "./components/projects/projects";
 import { checkLogin, fetchAllProjects } from "./hooks/dataFetching";
 
 function App() {
-  async function fetch(){
-    await fetchAllProjects().then(
-      (res)=>{
-        if(res.data.err===false){
-          setProjectData(res.data.message)
-          if(activeProject!==null){
-            let newActiveProject = projectData.filter(
-              (proj)=>{
-                  if(proj.id===activeProject.id){
-                    return true
-                  }
-              }
-            )
-            console.log(newActiveProject[0])
-            setActiveProject(newActiveProject[0])
-          }
-          setFetchIncrement(1)
-        }
-      }
-    )
-    .catch(
-      (err)=>{
-        console.log(err.response)
-      }
-    )
-  }
+
 
   async function checkAuth(){
     await checkLogin().then(
       (res)=>{
-        console.log(res)
         if(res.data.err){
           setLogin(false)
         }
@@ -64,7 +38,8 @@ function App() {
 
   const [isLogged,setLogin] = useState<boolean>(false)
 
-console.log(isLogged)
+  const [loadingMessage,setLoadingMessage] = useState("Loading data")
+
  
   useEffect(
     ()=>{
@@ -73,17 +48,42 @@ console.log(isLogged)
   )
   useEffect(
     ()=>{
+      async function fetch(){
+        await fetchAllProjects().then(
+          (res)=>{
+            if(res.data.err===false){
+              setProjectData(res.data.message)
+              if(activeProject!==null){
+                let newActiveProject = projectData.filter(
+                  (proj)=>{
+                      if(proj.id===activeProject.id){
+                        return true
+                      }
+                      return false
+                  }
+                )
+                setActiveProject(newActiveProject[0])
+              }
+              setFetchIncrement(1)
+            }
+          }
+        )
+        .catch(
+          (err)=>{
+            setLoadingMessage("Error retriving data from server")
+          }
+        )
+      }
       fetch()
     },[isLogged,fetchIncrement]
   )
 
 
-
   if(isLogged){
-    if(fetchIncrement===0){
-      return <p>Loading data</p>
+    if(fetchIncrement===0 || projectData.length===0){
+      return <p>{loadingMessage}</p>
     }
-    else if(activeProject===null){
+    else if(projectData.length===0 || activeProject===null || activeProject===undefined ){
       return (
         <div className="App">
           <Projects fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={{setter:setActiveProject,value:activeProject}} isLogged={{setter:setLogin,value:isLogged}} projectsState={{setter:setProjectData,value:projectData}}/>
@@ -97,7 +97,7 @@ console.log(isLogged)
       <div className="App">
         <Projects fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={{setter:setActiveProject,value:activeProject}} isLogged={{setter:setLogin,value:isLogged}} projectsState={{setter:setProjectData,value:projectData}}/>
         <Bugs bugArray={activeProject.bugs} isLogged={{setter:setLogin,value:isLogged}} fetchIncrement={{setter:setFetchIncrement,value:fetchIncrement}} activeProject={activeProject}/>
-        <AddBug activeProjectState={{setter:setActiveProject,value:activeProject}}  incrementState={{setter:setFetchIncrement,value:fetchIncrement}}/>
+        <AddBug activeProjectState={{setter:setActiveProject,value:activeProject}} isLogged={{setter:setLogin,value:isLogged}} incrementState={{setter:setFetchIncrement,value:fetchIncrement}}/>
       </div>
     );
     }

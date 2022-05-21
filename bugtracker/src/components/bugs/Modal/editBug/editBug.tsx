@@ -1,7 +1,7 @@
 import "./editBug.css";
 
 import closeIcon from "../../../../assets/closeIcon.svg";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { deleteBug, patchBug } from "../../../../hooks/dataFetching";
 export default function EditBug(editBugProp:editBugProp) {
   
@@ -101,7 +101,7 @@ export default function EditBug(editBugProp:editBugProp) {
       <div className="modalContent">
         <div className="editBugContainer">
           <h2>Edit Bug</h2>
-          <img src={closeIcon} onClick={closeModal} />
+          <img src={closeIcon} alt="closeIcon" onClick={closeModal} />
           <div className="inputContainer">
             {error === "" ? null : <p className="errorMsg">{error}</p>}
             <label>Bug Name</label><input type={"text"} value={name} onChange={handleNameChange} />

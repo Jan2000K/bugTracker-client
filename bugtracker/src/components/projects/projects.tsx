@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { postNewProject } from "../../hooks/dataFetching";
 import ProjectCard from "./projectCard/projectCard";
@@ -32,7 +31,10 @@ export default function Projects(
       .catch(
         (err)=>{
           if(err.response.status===401){
-
+            props.isLogged.setter(false)
+          }
+          else{
+            setProjectError("Error adding project")
           }
         }
       )

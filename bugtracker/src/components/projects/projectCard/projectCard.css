@@ -2,10 +2,10 @@
     display: grid;
     grid-template-columns: 50% 20% 20% 10%;
     align-items: center;
-    margin-top: 0.5vw;
+    margin-top: 0.7vw;
 }
 .projectCard p{
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     display: inline;
 }
 .projectCard img{
