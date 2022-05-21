@@ -1,69 +1,60 @@
-import { ChangeEvent, useState } from "react";
-import { postNewProject } from "../../hooks/dataFetching";
-import ProjectCard from "./projectCard/projectCard";
-import "./projects.css";
-export default function Projects(
-  props:{projectsState:reactStateProp<project[]>,activeProject:reactStateProp<project | null>,isLogged:reactStateProp<boolean>,fetchIncrement:reactStateProp<number>}
-) {
-  let data: project[] = props.projectsState.value;
-  const [projectError, setProjectError] = useState("");
-  const [projectDataCopy, setProjectDataCopy] = useState<project[]>(data);
-  const [searchValue, setSearchValue] = useState("");
+import { ChangeEvent, useState } from "react"
+import { postNewProject } from "../../hooks/dataFetching"
+import ProjectCard from "./projectCard/projectCard"
+import "./projects.css"
+export default function Projects(props: {
+  projectsState: reactStateProp<project[]>
+  activeProject: reactStateProp<project | null>
+  isLogged: reactStateProp<boolean>
+  fetchIncrement: reactStateProp<number>
+}) {
+  let data: project[] = props.projectsState.value
+  const [projectError, setProjectError] = useState("")
+  const [projectDataCopy, setProjectDataCopy] = useState<project[]>(data)
+  const [searchValue, setSearchValue] = useState("")
   async function addProject() {
     const inputElement = document.querySelector(
       "#addProjectInput"
-    ) as HTMLInputElement;
+    ) as HTMLInputElement
     if (inputElement.value.trim().length < 1) {
-      setProjectError("Enter project name!");
+      setProjectError("Enter project name!")
     } else {
-      await postNewProject({id:0,name:inputElement.value,bugs:[]})
-      .then(
-        (res)=>{
-          console.log(res)
-          if(res.data.err){
+      await postNewProject({ id: 0, name: inputElement.value, bugs: [] })
+        .then((res) => {
+          if (res.data.err) {
             setProjectError(res.data.message)
-          }
-          else{
+          } else {
             props.fetchIncrement.setter(0)
           }
-        }
-      )
-      .catch(
-        (err)=>{
-          if(err.response.status===401){
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
             props.isLogged.setter(false)
-          }
-          else{
+          } else {
             setProjectError("Error adding project")
           }
-        }
-      )
-      inputElement.value=""
-      if(projectError!==""){
+        })
+      inputElement.value = ""
+      if (projectError !== "") {
         setProjectError("")
-        
       }
-
-      
     }
   }
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
-    setSearchValue(e.target.value);
+    setSearchValue(e.target.value)
     if (e.target.value === "") {
-      setProjectDataCopy(data);
+      setProjectDataCopy(data)
     } else {
       let filtered = data.filter((val) => {
         if (val.name.includes(e.target.value)) {
-          return true;
+          return true
         } else {
-          return false;
+          return false
         }
-      });
-      setProjectDataCopy(filtered);
+      })
+      setProjectDataCopy(filtered)
     }
   }
-
-
 
   return (
     <section id="projects">
@@ -90,28 +81,28 @@ export default function Projects(
       </div>
       <div className="projectHead">
         <h2>Projects</h2>
-        <div className="openBugsBox statusBox"  />
-        <div className="highSeverityBox statusBox" />
+        <div className="openBugsBox statusBox" title="Open Bugs" />
+        <div className="highSeverityBox statusBox" title="High Severity Bugs"/>
       </div>
 
       <div className="projectsContainer">
         {projectDataCopy.map((projectInstance) => {
           return (
             <ProjectCard
-            isLogged={props.isLogged}
-            fetchIncrement={props.fetchIncrement}
-            key={projectInstance.id}
+              isLogged={props.isLogged}
+              fetchIncrement={props.fetchIncrement}
+              key={projectInstance.id}
               project={{
-              id:projectInstance.id,
-              name:projectInstance.name,
-              bugStats:projectInstance.bugStats,
-              bugs:projectInstance.bugs
+                id: projectInstance.id,
+                name: projectInstance.name,
+                bugStats: projectInstance.bugStats,
+                bugs: projectInstance.bugs,
               }}
               activeProjectState={props.activeProject}
             />
-          );
+          )
         })}
       </div>
     </section>
-  );
+  )
 }

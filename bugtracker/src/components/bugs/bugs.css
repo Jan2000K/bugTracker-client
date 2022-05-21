@@ -1,120 +1,116 @@
-.bugHeader{
+.bugHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bugHeader h2 {
+  font-family: "Poppins", sans-serif;
+}
+
+.bugHeader button {
+  padding: 0.5vw;
+  font-size: 1.1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  background-color: rgb(203, 207, 238);
+}
+.bugsContainer {
+  padding: 1vw;
+}
+.bugStats {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgb(216, 216, 216);
+  padding-bottom: 1vw;
+  font-family: "Poppins", sans-serif;
+  gap: 1vw;
+}
+
+.statContainer {
+  text-align: center;
+  padding: 0.5vw;
+  border-radius: 10px;
+}
+
+.openBugs {
+  background-color: rgb(215, 221, 243);
+}
+
+.openBugs p {
+  color: rgba(99, 115, 175, 0.677);
+}
+
+.highPriority {
+  background-color: rgba(251, 161, 161, 0.831);
+}
+
+.highPriority p {
+  color: red;
+}
+
+.meduimPriority {
+  background-color: rgb(255, 212, 131);
+}
+
+.meduimPriority p {
+  color: orange;
+}
+
+.lowPriority {
+  background-color: rgb(180, 227, 185);
+}
+
+.lowPriority p {
+  color: rgb(106, 196, 115);
+}
+
+.columnNames {
+  margin-top: 1vw;
+}
+.columnNames ul {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+}
+.columnNames li {
+  display: inline;
+  list-style: none;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+
+.columnNames li:last-child {
+  display: block;
+}
+
+@media screen and (max-width: 900px) {
+  .bugsContainer {
+    margin-top: 2vw;
+  }
+
+  .bugStats {
     display: flex;
-    justify-content: space-between;
-}
-
-.bugHeader h2{
-    font-family: 'Poppins', sans-serif;
-}
-
-.bugHeader button{
-    padding: 0.5vw;
-    font-size: 1.1rem;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
-    background-color: rgb(203, 207, 238);
-}
-.bugsContainer{
-    padding: 1vw;
-}
-.bugStats{
-    display: flex;  
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 5vw;
     border-bottom: 1px solid rgb(216, 216, 216);
-    padding-bottom: 1vw;
-    font-family: 'Poppins', sans-serif;
-    gap: 1vw;
-}
+    margin-top: 3vw;
+    padding-bottom: 9vw;
+  }
 
-.statContainer{
+  .statContainer {
     text-align: center;
     padding: 0.5vw;
     border-radius: 10px;
-}
+  }
 
-.openBugs{
-    background-color: rgb(215, 221, 243);
-}
-
-.openBugs p{
-    
-    color: rgba(99, 115, 175, 0.677);
-}
-
-.highPriority{
-    background-color: rgba(251, 161, 161, 0.831);
-}
-
-.highPriority p{
-    color:red
-}
-
-.meduimPriority{
-    background-color: rgb(255, 212, 131);
-}
-
-.meduimPriority p{
-    color:orange
-}
-
-.lowPriority{
-    background-color: rgb(180, 227, 185);
-}
-
-.lowPriority p{
-    color:rgb(106, 196, 115);
-
-}
-
-.columnNames{
-    margin-top: 1vw;
-}
-.columnNames ul{
+  .columnNames ul {
     display: grid;
-    grid-template-columns:repeat(4,25%);
+    grid-template-columns: repeat(3, 33.3%);
+  }
+
+  .columnNames li:last-child {
+    display: none;
+  }
 }
-.columnNames li{
-    display: inline;
-    list-style: none;
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.columnNames li:last-child{
-    display: block;
-}
-
-@media  screen and (max-width: 900px){
-
-    .bugsContainer{
-        margin-top: 2vw;
-    }
-
-    .bugStats{
-        display: flex;  
-        justify-content: center;
-        flex-wrap: wrap;
-        gap:5vw;
-        border-bottom: 1px solid rgb(216, 216, 216);
-        margin-top: 3vw;
-        padding-bottom: 9vw;
-    }
-
-    .statContainer{
-        text-align: center;
-        padding: 0.5vw;
-        border-radius: 10px;
-    }
-
-    .columnNames ul{
-        display: grid;
-        grid-template-columns:repeat(3,33.3%);
-    }
-
-    .columnNames li:last-child{
-        display: none;
-    }
-}
-

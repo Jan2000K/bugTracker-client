@@ -1,14 +1,14 @@
-.bugContainer{
-    border-bottom: 1px solid rgb(216, 216, 216);
-    padding: 0.5vw;
+.bugContainer {
+  border-bottom: 1px solid rgb(216, 216, 216);
+  padding: 0.5vw;
 }
 
-.bugContainer li:first-child{
-    color: blue;
-    cursor: pointer;
+.bugContainer li:first-child {
+  color: blue;
+  cursor: pointer;
 }
 
 .bugContainer img {
-    width:2rem;
-    height:2rem;
+  width: 2rem;
+  height: 2rem;
 }

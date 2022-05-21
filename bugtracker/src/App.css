@@ -1,24 +1,23 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.App{
+.App {
   display: grid;
   grid-template-columns: 25% 75%;
 }
 
-html,body{
+html,
+body {
   height: 100%;
 }
 
-
-
-@media  screen and (max-width: 900px){
-  .addProjectContainer button{
-      width: 40%;
+@media screen and (max-width: 900px) {
+  .addProjectContainer button {
+    width: 40%;
   }
-  .App{
+  .App {
     display: block;
   }
 }

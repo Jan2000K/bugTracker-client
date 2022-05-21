@@ -1,99 +1,89 @@
-import "./editBug.css";
+import "./editBug.css"
 
-import closeIcon from "../../../../assets/closeIcon.svg";
-import React, { ChangeEvent, useState } from "react";
-import { deleteBug, patchBug } from "../../../../hooks/dataFetching";
-export default function EditBug(editBugProp:editBugProp) {
-  
-  function closeModal(){
+import closeIcon from "../../../../assets/closeIcon.svg"
+import React, { ChangeEvent, useState } from "react"
+import { deleteBug, patchBug } from "../../../../hooks/dataFetching"
+export default function EditBug(editBugProp: editBugProp) {
+  function closeModal() {
     editBugProp.modalState.setter(false)
   }
 
-  async function closeAndUpdate(){
+  async function closeAndUpdate() {
     //apicall
-    await patchBug({id:editBugProp.bugData.id,name:name,status:status,severity:severity,note:note})
-    .then(
-      (res)=>{
-        if(res.data.err){
+    await patchBug({
+      id: editBugProp.bugData.id,
+      name: name,
+      status: status,
+      severity: severity,
+      note: note,
+    })
+      .then((res) => {
+        if (res.data.err) {
           setError(res.data.message)
-        }
-        else{
+        } else {
           editBugProp.modalState.setter(false)
           editBugProp.fetchIncrement.setter(0)
         }
-      }
-    )
-    .catch(
-      (err)=>{
+      })
+      .catch((err) => {
         console.log(err)
-        if(err.response.status===401){
+        if (err.response.status === 401) {
           console.log("!!!")
           editBugProp.isLogged.setter(false)
+        } else {
+          setError("Error updating data")
         }
-        else{
-        setError("Error updating data")
-        }
-      }
-    )
+      })
   }
 
-  async function closeAndDelete(){
+  async function closeAndDelete() {
     await deleteBug(editBugProp.bugData.id)
-    .then(
-      (res)=>{
-        if(res.data.err){
+      .then((res) => {
+        if (res.data.err) {
           setError(res.data.message)
-        }
-        else{
+        } else {
           editBugProp.modalState.setter(false)
           editBugProp.fetchIncrement.setter(0)
         }
-      }
-    )
-    .catch(
-      (err)=>{
-        if(err.response.status===401){
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
           editBugProp.isLogged.setter(false)
+        } else {
+          setError("Error Deleting bug")
         }
-        else{
-        setError("Error Deleting bug")
-        }
-      }
-    )
-
+      })
   }
-  
-  const [severity, setSeverity] = useState(editBugProp.bugData.severity);
 
-  const [status, setStatus] = useState(editBugProp.bugData.status);
+  const [severity, setSeverity] = useState(editBugProp.bugData.severity)
 
-  const [name, setName] = useState(editBugProp.bugData.name);
+  const [status, setStatus] = useState(editBugProp.bugData.status)
 
-  const [note, setNote] = useState(editBugProp.bugData.note);
+  const [name, setName] = useState(editBugProp.bugData.name)
 
-  const [error, setError] = useState("");
+  const [note, setNote] = useState(editBugProp.bugData.note)
 
-
+  const [error, setError] = useState("")
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value);
+    setName(e.target.value)
     if (e.target.value.trim().length < 1 && error === "") {
-      setError("Name cannot be empty!");
+      setError("Name cannot be empty!")
     } else if (error !== "") {
-      setError("");
+      setError("")
     }
   }
 
   function handleSatusChange(e: ChangeEvent<HTMLSelectElement>) {
-    setStatus(e.target.value as bugStatus);
+    setStatus(e.target.value as bugStatus)
   }
 
   function handleSeverityChange(e: ChangeEvent<HTMLSelectElement>) {
-    setSeverity(e.target.value as bugSeverity);
+    setSeverity(e.target.value as bugSeverity)
   }
 
   function handleNoteChange(e: ChangeEvent<HTMLInputElement>) {
-    setNote(e.target.value);
+    setNote(e.target.value)
   }
 
   return (
@@ -104,7 +94,8 @@ export default function EditBug(editBugProp:editBugProp) {
           <img src={closeIcon} alt="closeIcon" onClick={closeModal} />
           <div className="inputContainer">
             {error === "" ? null : <p className="errorMsg">{error}</p>}
-            <label>Bug Name</label><input type={"text"} value={name} onChange={handleNameChange} />
+            <label>Bug Name</label>
+            <input type={"text"} value={name} onChange={handleNameChange} />
             <br />
             <label>Bug Status</label>
             <select value={status} onChange={handleSatusChange}>
@@ -120,16 +111,20 @@ export default function EditBug(editBugProp:editBugProp) {
               <option>High</option>
             </select>
             <br />
-            <label>Note</label><input type={"text"} value={note} onChange={handleNoteChange} />
+            <label>Note</label>
+            <input type={"text"} value={note} onChange={handleNoteChange} />
             <br />
             <div className="buttonContainer">
-              <button onClick={closeAndDelete} className="deleteButton">Delete</button>
-              <button onClick={closeAndUpdate} className="updateButton">Update</button>
+              <button onClick={closeAndDelete} className="deleteButton">
+                Delete
+              </button>
+              <button onClick={closeAndUpdate} className="updateButton">
+                Update
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-  
+  )
 }
