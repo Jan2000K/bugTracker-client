@@ -38,21 +38,39 @@ function App() {
     async function fetch() {
       await fetchAllProjects()
         .then((res) => {
+          console.log(activeProject)
           if (res.data.err === false) {
             setProjectData(res.data.message)
-            if (activeProject !== null) {
+            if (activeProject !== null && activeProject!==undefined && projectData.length>0) {
               let newActiveProject = projectData.filter((proj) => {
-                if (proj.id === activeProject.id) {
-                  return true
+                if (proj && proj.id) {
+                  if (proj.id === activeProject.id) {
+                    return true
+                  }
+                  return false
+                } else {
+                  return false
                 }
-                return false
               })
-              setActiveProject(newActiveProject[0])
+              if (newActiveProject.length === 0) {
+                setActiveProject(null)
+              } else {
+                setActiveProject(newActiveProject[0])
+              }
+            }
+            else{
+              console.log("Inlog")
+              setProjectData(res.data.message)
+              if(res.data.message.length>0){
+                setActiveProject(res.data.message[0])
+              }
             }
             setFetchIncrement(1)
           }
+
         })
         .catch((err) => {
+          console.log(err)
           setLoadingMessage("Error retriving data from server")
         })
     }
@@ -60,7 +78,7 @@ function App() {
   }, [isLogged, fetchIncrement])
 
   if (isLogged) {
-    if (fetchIncrement === 0 || projectData.length === 0) {
+    if (fetchIncrement === 0 || projectData ===undefined) {
       return <p>{loadingMessage}</p>
     } else if (
       projectData.length === 0 ||
