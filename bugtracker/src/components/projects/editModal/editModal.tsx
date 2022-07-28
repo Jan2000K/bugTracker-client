@@ -23,7 +23,7 @@ export default function EditProjectModal(props: {
   }
 
   async function closeAndDelete() {
-    await deleteProject(props.projectObj.id)
+    deleteProject(props.projectObj.id)
       .then((res) => {
         if (res.data.err) {
           setError(res.data.message)
@@ -41,7 +41,7 @@ export default function EditProjectModal(props: {
       })
   }
   async function closeAndUpdate() {
-    await updateProject({ name: name, projectID: props.projectObj.id })
+    updateProject({ name: name, projectID: props.projectObj.id })
       .then((res) => {
         if (res.data.err) {
           setError(res.data.message)

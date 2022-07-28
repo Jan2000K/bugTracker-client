@@ -8,7 +8,7 @@ import { checkLogin, fetchAllProjects } from "./hooks/dataFetching"
 
 function App() {
   async function checkAuth() {
-    await checkLogin()
+    checkLogin()
       .then((res) => {
         if (res.data.err) {
           setLogin(false)
@@ -16,7 +16,7 @@ function App() {
           setLogin(true)
         }
       })
-      .catch((err) => {
+      .catch(() => {
         setLogin(false)
       })
   }
@@ -35,50 +35,46 @@ function App() {
     checkAuth()
   }, [])
   useEffect(() => {
-    async function fetch() {
-      await fetchAllProjects()
-        .then((res) => {
-          console.log(activeProject)
-          if (res.data.err === false) {
-            setProjectData(res.data.message)
-            if (activeProject !== null && activeProject!==undefined && projectData.length>0) {
-              let newActiveProject = projectData.filter((proj) => {
-                if (proj && proj.id) {
-                  if (proj.id === activeProject.id) {
-                    return true
-                  }
-                  return false
-                } else {
-                  return false
+    fetchAllProjects()
+      .then((res) => {
+        if (res.data.err === false) {
+          setProjectData(res.data.message)
+          if (
+            activeProject !== null &&
+            activeProject !== undefined &&
+            projectData.length > 0
+          ) {
+            let newActiveProject = projectData.filter((proj) => {
+              if (proj && proj.id) {
+                if (proj.id === activeProject.id) {
+                  return true
                 }
-              })
-              if (newActiveProject.length === 0) {
-                setActiveProject(null)
+                return false
               } else {
-                setActiveProject(newActiveProject[0])
+                return false
               }
+            })
+            if (newActiveProject.length === 0) {
+              setActiveProject(null)
+            } else {
+              setActiveProject(newActiveProject[0])
             }
-            else{
-              console.log("Inlog")
-              setProjectData(res.data.message)
-              if(res.data.message.length>0){
-                setActiveProject(res.data.message[0])
-              }
+          } else {
+            setProjectData(res.data.message)
+            if (res.data.message.length > 0) {
+              setActiveProject(res.data.message[0])
             }
-            setFetchIncrement(1)
           }
-
-        })
-        .catch((err) => {
-          console.log(err)
-          setLoadingMessage("Error retriving data from server")
-        })
-    }
-    fetch()
+          setFetchIncrement(1)
+        }
+      })
+      .catch((err) => {
+        setLoadingMessage("Error retriving data from server")
+      })
   }, [isLogged, fetchIncrement])
 
   if (isLogged) {
-    if (fetchIncrement === 0 || projectData ===undefined) {
+    if (fetchIncrement === 0 || projectData === undefined) {
       return <p>{loadingMessage}</p>
     } else if (
       projectData.length === 0 ||

@@ -2,6 +2,8 @@ import "./loginPage.css"
 import userIcon from "../../assets/user.svg"
 import { useState } from "react"
 import axios from "axios"
+import { baseURL } from "../../hooks/dataFetching"
+
 export default function LoginPage(loginState: reactStateProp<boolean>) {
   const setLogin = loginState.setter
   const [errorMsg, setErrorMsg] = useState("")
@@ -17,9 +19,9 @@ export default function LoginPage(loginState: reactStateProp<boolean>) {
       setErrorMsg("Please enter your password")
       return
     } else {
-      await axios
+      axios
         .post(
-          "http://localhost:5000/user/login",
+          `${baseURL}/user/login`,
           {
             username: username.value,
             password: password.value,
@@ -33,7 +35,7 @@ export default function LoginPage(loginState: reactStateProp<boolean>) {
             setLogin(true)
           }
         })
-        .catch((err) => {
+        .catch(() => {
           setErrorMsg("Error logging in")
         })
     }

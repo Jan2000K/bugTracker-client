@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseURL = "http://localhost:5000"
+export const baseURL = "https://bt.janezsite.com/api"
 
 export async function fetchAllProjects() {
   return await axios.get(`${baseURL}/project/all`, { withCredentials: true })
@@ -11,7 +11,7 @@ export async function postNewProject(proj: {
   name: string
   bugs: []
 }) {
-  return await await axios.post(`${baseURL}/project`, proj, {
+  return  await axios.post(`${baseURL}/project`, proj, {
     withCredentials: true,
   })
 }

@@ -21,6 +21,11 @@
   cursor: pointer;
 }
 
+.activeProject{
+  cursor: pointer;
+}
+
+
 @media screen and (max-width: 800px) {
   .projectCard {
     margin-top: 1.5vw;

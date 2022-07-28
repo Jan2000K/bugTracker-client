@@ -9,8 +9,7 @@ export default function EditBug(editBugProp: editBugProp) {
   }
 
   async function closeAndUpdate() {
-    //apicall
-    await patchBug({
+    patchBug({
       id: editBugProp.bugData.id,
       name: name,
       status: status,
@@ -26,9 +25,7 @@ export default function EditBug(editBugProp: editBugProp) {
         }
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.status === 401) {
-          console.log("!!!")
           editBugProp.isLogged.setter(false)
         } else {
           setError("Error updating data")
@@ -37,7 +34,7 @@ export default function EditBug(editBugProp: editBugProp) {
   }
 
   async function closeAndDelete() {
-    await deleteBug(editBugProp.bugData.id)
+    deleteBug(editBugProp.bugData.id)
       .then((res) => {
         if (res.data.err) {
           setError(res.data.message)
@@ -74,7 +71,7 @@ export default function EditBug(editBugProp: editBugProp) {
     }
   }
 
-  function handleSatusChange(e: ChangeEvent<HTMLSelectElement>) {
+  function handleStatusChange(e: ChangeEvent<HTMLSelectElement>) {
     setStatus(e.target.value as bugStatus)
   }
 
@@ -98,7 +95,7 @@ export default function EditBug(editBugProp: editBugProp) {
             <input type={"text"} value={name} onChange={handleNameChange} />
             <br />
             <label>Bug Status</label>
-            <select value={status} onChange={handleSatusChange}>
+            <select value={status} onChange={handleStatusChange}>
               <option>Open</option>
               <option>Testing</option>
               <option>Closed</option>

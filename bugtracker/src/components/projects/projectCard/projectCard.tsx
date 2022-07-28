@@ -21,29 +21,70 @@ export default function ProjectCard(props: {
       setActiveProject(currentProject)
     }
   }
-
-  return (
-    <div className="projectCard">
-      <div>
-        <p className="projectName" onClick={setThisToActive}>
-          {props.project.name}
-        </p>
-      </div>
-      <p>{props.project.bugStats.open}</p>
-      <p>{props.project.bugStats.highPriority}</p>
-      <img src={editIcon}alt="editProjectModal" title="Edit Project" onClick={openEditModal} />
-      {modalOpen ? (
-        <EditProjectModal
-          modalVisible={{ setter: setModalOpen, value: modalOpen }}
-          fetchIncrement={props.fetchIncrement}
-          isLogged={props.isLogged}
-          projectObj={{
-            id: props.project.id,
-            name: props.project.name,
-            bugs: props.project.bugs,
-          }}
+  if (
+    props.activeProjectState.value !== null &&
+    props.activeProjectState.value.id === props.project.id
+  ) {
+    return (
+      <div className="projectCard">
+        <div>
+          {props.project.id === props.activeProjectState.value?.id}
+          <p className="activeProject" onClick={setThisToActive}>
+            {props.project.name}
+          </p>
+        </div>
+        <p>{props.project.bugStats.open}</p>
+        <p>{props.project.bugStats.highPriority}</p>
+        <img
+          src={editIcon}
+          alt="editProjectModal"
+          title="Edit Project"
+          onClick={openEditModal}
         />
-      ) : null}
-    </div>
-  )
+        {modalOpen ? (
+          <EditProjectModal
+            modalVisible={{ setter: setModalOpen, value: modalOpen }}
+            fetchIncrement={props.fetchIncrement}
+            isLogged={props.isLogged}
+            projectObj={{
+              id: props.project.id,
+              name: props.project.name,
+              bugs: props.project.bugs,
+            }}
+          />
+        ) : null}
+      </div>
+    )
+  } else {
+    return (
+      <div className="projectCard">
+        <div>
+          {props.project.id === props.activeProjectState.value?.id}
+          <p className="projectName" onClick={setThisToActive}>
+            {props.project.name}
+          </p>
+        </div>
+        <p>{props.project.bugStats.open}</p>
+        <p>{props.project.bugStats.highPriority}</p>
+        <img
+          src={editIcon}
+          alt="editProjectModal"
+          title="Edit Project"
+          onClick={openEditModal}
+        />
+        {modalOpen ? (
+          <EditProjectModal
+            modalVisible={{ setter: setModalOpen, value: modalOpen }}
+            fetchIncrement={props.fetchIncrement}
+            isLogged={props.isLogged}
+            projectObj={{
+              id: props.project.id,
+              name: props.project.name,
+              bugs: props.project.bugs,
+            }}
+          />
+        ) : null}
+      </div>
+    )
+  }
 }

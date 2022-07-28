@@ -19,7 +19,7 @@ export default function Projects(props: {
     if (inputElement.value.trim().length < 1) {
       setProjectError("Enter project name!")
     } else {
-      await postNewProject({ id: 0, name: inputElement.value, bugs: [] })
+      postNewProject({ id: 0, name: inputElement.value, bugs: [] })
         .then((res) => {
           if (res.data.err) {
             setProjectError(res.data.message)
@@ -82,7 +82,7 @@ export default function Projects(props: {
       <div className="projectHead">
         <h2>Projects</h2>
         <div className="openBugsBox statusBox" title="Open Bugs" />
-        <div className="highSeverityBox statusBox" title="High Severity Bugs"/>
+        <div className="highSeverityBox statusBox" title="High Severity Bugs" />
       </div>
 
       <div className="projectsContainer">

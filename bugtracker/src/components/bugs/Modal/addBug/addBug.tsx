@@ -1,5 +1,5 @@
 import "./addBug.css"
-
+import { baseURL } from "../../../../hooks/dataFetching"
 import closeIcon from "../../../../assets/closeIcon.svg"
 import { useState } from "react"
 import axios from "axios"
@@ -37,15 +37,15 @@ export default function AddBug(props: {
 
     if (bugName.value.trim().length < 1) {
       setNameError("Please enter Bug Name!")
-      return false
+      return
     }
     const severity = document.querySelector(".addSelect") as HTMLSelectElement
 
     const noteInput = document.querySelector(".noteInput") as HTMLInputElement
 
-    await axios
+    axios
       .post(
-        "http://localhost:5000/bug",
+        `${baseURL}/bug`,
         {
           id: 0,
           name: bugName.value,
@@ -57,7 +57,6 @@ export default function AddBug(props: {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res)
         if (res.data.err) {
           setNameError(res.data.message)
           return
@@ -68,14 +67,13 @@ export default function AddBug(props: {
         }
       })
       .catch((err) => {
-        if (err.response.code === 401) {
+        if (err.response.status === 401) {
           props.isLogged.setter(false)
         } else {
           setNameError("Error adding project")
           return
         }
       })
-    //api call
   }
   return (
     <div className="modal addModal">
