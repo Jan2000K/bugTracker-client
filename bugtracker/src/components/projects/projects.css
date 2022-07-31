@@ -120,6 +120,7 @@
     padding: 1vw;
     background-color: rgb(203, 207, 238);
     height: 100%;
+    min-height: auto;
   }
   #projects button {
     margin-top: 3vw;

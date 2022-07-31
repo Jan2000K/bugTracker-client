@@ -10,11 +10,11 @@
 .modalContent {
   padding: 1vw;
   position: relative;
-  top: 25%;
+  top: 5%;
   background-color: white;
   margin: auto;
   width: 40%;
-  height: 45%;
+  height: 50%;
 }
 
 .modalContent label,
@@ -78,9 +78,8 @@ select,
 @media screen and (min-width: 700px) and (max-width: 1100px) {
   .modalContent {
     padding: 1vw;
-    top: 25%;
     width: 60%;
-    height: 50%;
+    height: 70%;
   }
 
   .inputContainer input {
@@ -91,9 +90,8 @@ select,
 @media screen and (max-width: 700px) {
   .modalContent {
     padding: 1vw;
-    top: 25%;
     width: 80%;
-    height: 50%;
+    height: 70%;
   }
 
   .inputContainer input {
