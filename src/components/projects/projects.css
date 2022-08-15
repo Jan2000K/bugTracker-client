@@ -1,0 +1,137 @@
+#projects {
+  border-right: 1px solid rgb(216, 216, 216);
+  padding: 1vw;
+  background-color: rgb(203, 207, 238);
+  min-height: 100vh;
+  overflow: auto;
+}
+
+#projects h2 {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+}
+.openBugsBox {
+  background-color: rgb(171, 184, 233);
+}
+
+.addProjectContainer input {
+  width: 100%;
+  margin-top: 1vw;
+}
+
+.addProjectContainer button {
+  padding: 0.3vw;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+  margin-bottom: 1vw;
+  font-family: "Open Sans", sans-serif;
+}
+
+.addProjectContainer {
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.addProjectContainer button {
+  margin-top: 1vw;
+}
+.projectUserControls {
+  display: grid;
+}
+.projectHead {
+  display: grid;
+  grid-template-columns: 50% 20% 20% 10%;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+.statusBox {
+  display: inline-block;
+  width: 1vw;
+  height: 1vw;
+  border: 0.2vw solid white;
+}
+
+.searchProjectsInput,
+#addProjectInput {
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.2vw;
+  border-radius: 20px;
+  background-color: rgb(232, 231, 231);
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+}
+.highSeverityBox {
+  background-color: red;
+}
+
+.searchContainer {
+  margin-top: 1vw;
+}
+
+.projectsContainer {
+  margin-top: 1vw;
+}
+
+.errorMsg {
+  color: red;
+  font-family: "Poppins", sans-serif;
+}
+
+@media screen and (max-width: 1008px) and (min-width: 900px) {
+  .addProjectContainer button {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 800px) {
+  #projects {
+    border-right: none;
+    border-bottom: 3px solid rgb(216, 216, 216);
+    padding: 1vw;
+    background-color: rgb(203, 207, 238);
+    height: 100%;
+  }
+  .addProjectContainer button {
+    margin-top: 2vw;
+  }
+  .projectHead {
+    margin-top: 3vw;
+  }
+  .statusBox {
+    width: 2vw;
+    height: 2vw;
+    border: 0.3vw solid white;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .statusBox {
+    width: 2.7vw;
+    height: 2.7vw;
+    border: 0.3vw solid white;
+  }
+  #projects {
+    border-right: none;
+    border-bottom: 3px solid rgb(216, 216, 216);
+    padding: 1vw;
+    background-color: rgb(203, 207, 238);
+    height: 100%;
+    min-height: auto;
+  }
+  #projects button {
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+  }
+
+  #projects input {
+    text-indent: 3px;
+  }
+
+  .projectsContainer {
+    padding-bottom: 2vw;
+  }
+}
