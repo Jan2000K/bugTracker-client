@@ -8,6 +8,7 @@ import { checkLogin, fetchAllProjects } from "./hooks/dataFetching"
 
 function App() {
   async function checkAuth() {
+    //Checking if user is Authorized
     checkLogin()
       .then((res) => {
         if (res.data.err) {
@@ -21,8 +22,9 @@ function App() {
       })
   }
 
+  //changing state to refetch the data from the API
   const [fetchIncrement, setFetchIncrement] = useState<number>(0)
-
+  
   const [projectData, setProjectData] = useState<project[]>([])
 
   const [activeProject, setActiveProject] = useState<project | null>(null)
@@ -30,15 +32,19 @@ function App() {
   const [isLogged, setLogin] = useState<boolean>(false)
 
   const [loadingMessage, setLoadingMessage] = useState("Loading data")
-
+ //first check users Auth
   useEffect(() => {
     checkAuth()
   }, [])
+
   useEffect(() => {
+    //if user is authorized, then fetch data from the API
+    if(isLogged){
     fetchAllProjects()
       .then((res) => {
         if (res.data.err === false) {
           setProjectData(res.data.message)
+          //if there is an active project, find it in the new data recived and update the state with new data
           if (
             activeProject !== null &&
             activeProject !== undefined &&
@@ -50,30 +56,34 @@ function App() {
                   return true
                 }
                 return false
-              } else {
-                return false
-              }
+              } 
             })
+            //if the new projectDataArray has a length of 0 it means, no project was found that matched the previous active project
             if (newActiveProject.length === 0) {
               setActiveProject(null)
             } else {
               setActiveProject(newActiveProject[0])
             }
           } else {
+            //if there was no previous active project set new project data
             setProjectData(res.data.message)
+            
             if (res.data.message.length > 0) {
               setActiveProject(res.data.message[0])
             }
           }
+          //set fetchIncrement to 1 meaning fetching is complete
           setFetchIncrement(1)
         }
       })
-      .catch((err) => {
+      .catch(() => {
         setLoadingMessage("Error retriving data from server")
       })
+    }
   }, [isLogged, fetchIncrement])
 
   if (isLogged) {
+    //check if data is still loading
     if (fetchIncrement === 0 || projectData === undefined) {
       return <p>{loadingMessage}</p>
     } else if (
@@ -81,6 +91,7 @@ function App() {
       activeProject === null ||
       activeProject === undefined
     ) {
+      //if there are no projects or no active project only return Projects menu
       return (
         <div className="App">
           <Projects
@@ -95,6 +106,7 @@ function App() {
         </div>
       )
     } else {
+      //If there are return projects and menu screen
       return (
         <div className="App">
           <Projects

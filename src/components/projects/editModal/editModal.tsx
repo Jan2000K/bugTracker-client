@@ -8,6 +8,7 @@ export default function EditProjectModal(props: {
   isLogged: reactStateProp<boolean>
   fetchIncrement: reactStateProp<number>
 }) {
+  //inital value is the original name
   const [name, setName] = useState(props.projectObj.name)
   const [error, setError] = useState("")
   function closeModal() {

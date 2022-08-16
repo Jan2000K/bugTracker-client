@@ -63,10 +63,12 @@ export default function AddBug(props: {
         } else {
           resetFields()
           closeModal()
+          //set the increment State to 0 indicating that a refresh of data must be made
           props.incrementState.setter(0)
         }
       })
       .catch((err) => {
+        //if the response status code is 401 it means that there is no authorization
         if (err.response.status === 401) {
           props.isLogged.setter(false)
         } else {

@@ -8,7 +8,7 @@ export default function ProjectCard(props: {
   isLogged: reactStateProp<boolean>
   fetchIncrement: reactStateProp<number>
 }) {
-  const setActiveProject = props.activeProjectState?.setter
+  const setActiveProject = props.activeProjectState.setter
 
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -21,6 +21,7 @@ export default function ProjectCard(props: {
       setActiveProject(currentProject)
     }
   }
+  //if this is the active project then return this content
   if (
     props.activeProjectState.value !== null &&
     props.activeProjectState.value.id === props.project.id
@@ -55,7 +56,8 @@ export default function ProjectCard(props: {
         ) : null}
       </div>
     )
-  } else {
+  } //if its not the current active project return this data (diffrence is in the paragraph class) 
+  else {
     return (
       <div className="projectCard">
         <div>

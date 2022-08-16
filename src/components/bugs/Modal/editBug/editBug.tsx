@@ -21,10 +21,12 @@ export default function EditBug(editBugProp: editBugProp) {
           setError(res.data.message)
         } else {
           editBugProp.modalState.setter(false)
+          //set the increment State to 0 indicating that a refresh of data must be made
           editBugProp.fetchIncrement.setter(0)
         }
       })
       .catch((err) => {
+        //if the response status code is 401 it means that there is no authorization
         if (err.response.status === 401) {
           editBugProp.isLogged.setter(false)
         } else {
@@ -40,10 +42,12 @@ export default function EditBug(editBugProp: editBugProp) {
           setError(res.data.message)
         } else {
           editBugProp.modalState.setter(false)
+          //set the increment State to 0 indicating that a refresh of data must be made
           editBugProp.fetchIncrement.setter(0)
         }
       })
       .catch((err) => {
+        //if the response status code is 401 it means that there is no authorization
         if (err.response.status === 401) {
           editBugProp.isLogged.setter(false)
         } else {

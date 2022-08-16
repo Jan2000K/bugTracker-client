@@ -8,7 +8,7 @@ export default function Bugs(bugsProp: bugsDisplayProp) {
     const modal = document.querySelector(".addModal") as HTMLElement
     modal.style.display = "block"
   }
-
+  //Sorting the array of bugs
   const sortedArray = bugsProp.bugArray.sort((a, b) => {
     if (a.status === "Open" && b.status === "Open") {
       if (a.severity === "High" && b.severity === "High") {
@@ -76,7 +76,7 @@ export default function Bugs(bugsProp: bugsDisplayProp) {
       return 0
     }
   })
-
+  //placehodler selectedBug
   const [selectedBug, setSelectedBug] = useState<bug>({
     id: -1,
     name: "placeholder",

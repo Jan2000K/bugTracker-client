@@ -10,6 +10,7 @@ export default function Projects(props: {
 }) {
   let data: project[] = props.projectsState.value
   const [projectError, setProjectError] = useState("")
+  //creating a copy for search
   const [projectDataCopy, setProjectDataCopy] = useState<project[]>(data)
   const [searchValue, setSearchValue] = useState("")
   async function addProject() {
