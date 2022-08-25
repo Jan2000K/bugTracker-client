@@ -87,13 +87,14 @@
   }
 }
 
-@media screen and (max-width: 900px) and (min-width: 800px) {
+@media screen and (max-width: 1050px) and (min-width: 800px) {
   #projects {
     border-right: none;
     border-bottom: 3px solid rgb(216, 216, 216);
     padding: 1vw;
     background-color: rgb(203, 207, 238);
     height: 100%;
+    min-height: auto;
   }
   .addProjectContainer button {
     margin-top: 2vw;

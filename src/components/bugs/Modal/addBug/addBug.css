@@ -14,7 +14,7 @@
   background-color: white;
   margin: auto;
   width: 40%;
-  height: 50%;
+  height: auto;
 }
 
 .modalContent label,
@@ -31,6 +31,10 @@ select,
 .addBugContainer img {
   cursor: pointer;
   float: right;
+}
+
+.addBugContainer {
+  overflow: hidden;
 }
 
 .addBugContainer h2 {

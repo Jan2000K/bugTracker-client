@@ -67,7 +67,7 @@
 }
 
 .columnNames {
-  margin-top: 1vw;
+  margin-top: 1.5vw;
 }
 .columnNames ul {
   display: grid;
@@ -105,6 +105,9 @@
     border-radius: 10px;
   }
 
+  .columnNames{
+    margin-top: 3.5vw;
+  }
   .columnNames ul {
     display: grid;
     grid-template-columns: repeat(3, 33.3%);
