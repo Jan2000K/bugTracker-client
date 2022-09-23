@@ -76,7 +76,7 @@ export default function Bugs(bugsProp: bugsDisplayProp) {
       return 0
     }
   })
-  //placehodler selectedBug
+  //placeholder selectedBug
   const [selectedBug, setSelectedBug] = useState<bug>({
     id: -1,
     name: "placeholder",
